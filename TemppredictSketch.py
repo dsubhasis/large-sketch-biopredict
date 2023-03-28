@@ -5,7 +5,7 @@ import csv
 
 num_cores = multiprocessing.cpu_count()
 print(num_cores)
-path_index="/home/jovyan/postgres_public_full_catalog.csv"
+path_index="/datavol/tempredict/postgres_public_full_catalog.csv"
 with open(path_index, mode='r') as infile:
     reader = csv.reader(infile)
     dcp="/cephfs/tempredict/tempredict-base/"
