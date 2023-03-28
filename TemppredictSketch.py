@@ -4,6 +4,7 @@ import multiprocessing
 import csv
 
 num_cores = multiprocessing.cpu_count()
+print(num_cores)
 path_index="/home/jovyan/postgres_public_full_catalog.csv"
 with open(path_index, mode='r') as infile:
     reader = csv.reader(infile)
@@ -30,6 +31,6 @@ def uprocess(mydict):
     for key, value in mydict.items():
         print("1."+str(value))
         t = sketch()
-        t.uint_sketch(value, key)
+        t.uint_sketch(value, key, tw=300)
 
 Parallel(n_jobs=num_cores, verbose=10)(delayed(uprocess)(x) for x in dicts)
