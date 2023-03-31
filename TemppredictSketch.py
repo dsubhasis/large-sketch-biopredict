@@ -89,7 +89,7 @@ def uprocess(mydict):
     for key, value in mydict.items():
         # print("1."+str(value))
         t = sketch()
-        t.uint_sketch(value, key, tw="300s",  prefix_dir="/datavol/tempredict/sketch")
+        t.uint_sketch(value, key, tw="300s",  prefix_dir="/datavol/tempredict/sketch/")
 
 Parallel(n_jobs=num_cores, verbose=10)(delayed(uprocess)(x) for x in dicts)
 
