@@ -61,7 +61,7 @@ class sketch:
             # y = datetime.strptime("1500-12-31 21:19:00 +00:00", '%Y-%m-%d %H:%M:%S %z')
             print(str(e))
         return y
-num_cores = multiprocessing.cpu_count() - 100
+num_cores = multiprocessing.cpu_count()
 print(num_cores)
 path_index="/datavol/tempredict/postgres_public_full_catalog.csv"
 with open(path_index, mode='r') as infile:
