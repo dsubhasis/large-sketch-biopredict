@@ -84,6 +84,7 @@ def split_dictionary(input_dict, chunk_size):
     res.append(new_dict)
     return res
 dicts = split_dictionary(mydict, 1)
+print(len(dicts))
 
 def uprocess(mydict):
     for key, value in mydict.items():
@@ -91,5 +92,5 @@ def uprocess(mydict):
         t = sketch()
         t.uint_sketch(value, key, tw="300s",  prefix_dir="/datavol/tempredict/sketch/")
 
-Parallel(n_jobs=num_cores, verbose=10)(delayed(uprocess)(x) for x in dicts)
+Parallel(n_jobs=num_cores)(delayed(uprocess)(x) for x in dicts)
 
