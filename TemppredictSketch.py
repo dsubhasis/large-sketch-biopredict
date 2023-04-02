@@ -19,7 +19,7 @@ class sketch:
             p_inxl = df.set_index(['timestamp_utc_dt_local'])
             p_inx_t = p_inxl.drop(
                 columns=['timezone_offset_minutes', 'participant_id', 'file_format', 'data_type', 'timestamp_utc',
-                         'timestamp_utc_dt'])
+                         'timestamp_utc_dt', 'study_id'])
             p_inx = p_inx_t.compute()
             sktch_agg = None
             p_sample = p_inx.resample(tw)
