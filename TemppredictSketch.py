@@ -99,5 +99,5 @@ def uprocess(mydict):
             print("error", e.message, e.args)
 
 
-Parallel(n_jobs=num_cores, prefer="threads")(delayed(uprocess)(x) for x in dicts)
+Parallel(n_jobs=num_cores, verbose=20)(delayed(uprocess)(x) for x in dicts)
 
