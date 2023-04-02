@@ -90,7 +90,11 @@ def uprocess(mydict):
     for key, value in mydict.items():
         # print("1."+str(value))
         t = sketch()
-        t.uint_sketch(value, key, tw="300s",  prefix_dir="/datavol/tempredict/sketch/")
+        try:
+            t.uint_sketch(value, key, tw="300s",  prefix_dir="/datavol/tempredict/sketch/")
+        except Exception as e:
+            print("error", e.message, e.args)
+
 
 Parallel(n_jobs=num_cores)(delayed(uprocess)(x) for x in dicts)
 
