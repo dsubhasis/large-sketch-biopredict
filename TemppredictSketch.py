@@ -86,7 +86,7 @@ def split_dictionary(input_dict, chunk_size):
             new_dict = {k: v}
     res.append(new_dict)
     return res
-dicts = split_dictionary(mydict, 20000)
+dicts = split_dictionary(mydict, num_cores)
 print(len(dicts))
 
 def uprocess(mydict):
