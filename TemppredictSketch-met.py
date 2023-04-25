@@ -10,7 +10,7 @@ from scipy.stats import kurtosis
 
 
 class sketch:
-    def uint_sketch(self, paths, uid, tw="300s", var='respiratory_rate@30s', prefix_dir="/cephfs/tempredict/sketch/",
+    def uint_sketch(self, paths, uid, tw="300s", var='met', prefix_dir="/cephfs/tempredict/sketch/",
                     fillin=True):
         try:
             b = bioframe()
@@ -71,7 +71,7 @@ class sketch:
 
 num_cores = multiprocessing.cpu_count()
 print(num_cores)
-path_index = "/datavol/tempredict/postgres_public_full_catalog-rr.csv"
+path_index = "/datavol/tempredict/postgres_public_met_catalog.csv"
 with open(path_index, mode='r') as infile:
     reader = csv.reader(infile)
     dcp = "/datavol/tempredict/org_data_don_use/study_id=71c9af3d-1c57-4e8e-96fb-88b10ee9acb8/"
@@ -104,7 +104,7 @@ def uprocess(mydict):
         # print("1."+str(value))
         t = sketch()
         try:
-            t.uint_sketch(value, key, tw="300s", prefix_dir="/datavol/tempredict/sketch/")
+            t.uint_sketch(value, key, tw="300s", var="met",prefix_dir="/datavol/tempredict/sketch/")
         except Exception as e:
             print("error", e.message, e.args)
 
