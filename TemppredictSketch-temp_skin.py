@@ -57,7 +57,7 @@ class sketch:
             pskt.to_csv(prefix_dir + str(var) + "/" + uid + ".csv", sep=',')
             return pskt;
         except Exception as e:
-            print("error", e.message, e.args)
+            print("error", e.args, var)
 
     def local_time(self, x):
         y = 0
@@ -69,7 +69,7 @@ class sketch:
         return y
 
 
-num_cores = multiprocessing.cpu_count()*3
+num_cores = multiprocessing.cpu_count()
 print(num_cores)
 path_index = "/datavol/tempredict/postgres_public_full_catalog.csv"
 with open(path_index, mode='r') as infile:
