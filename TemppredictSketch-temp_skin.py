@@ -104,7 +104,7 @@ def uprocess(mydict):
         # print("1."+str(value))
         t = sketch()
         try:
-            t.uint_sketch(value, key, tw="300s", var="met",prefix_dir="/datavol/tempredict/sketch/")
+            t.uint_sketch(value, key, tw="300s", var="temperature",prefix_dir="/datavol/tempredict/sketch/")
         except Exception as e:
             print("error", e.message, e.args)
 
