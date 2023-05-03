@@ -15,17 +15,18 @@ class sketch:
         try:
             b = bioframe()
             df, sql = b.load(paths, uid=uid)
-            df["timestamp_utc_dt"] = df.apply(lambda x: self.local_time(x["timestamp_utc"]), axis=1)
+            df2 = df.compute()
+            df2["timestamp_utc_dt"] = df2.apply(lambda x: self.local_time(x["timestamp_utc"]), axis=1)
             tf = []
             tf.append("timestamp_utc_dt")
-            b.add_local_time(df, tf, utc='timezone_offset_minutes')
-            p_inxl = df.set_index(['timestamp_utc_dt_local'])
-            p_inx_t = p_inxl.drop(
+            b.add_local_time(df2, tf, utc='timezone_offset_minutes')
+            df3 = df2.drop(
                 columns=['timezone_offset_minutes', 'participant_id', 'file_format', 'data_type', 'timestamp_utc',
                          'timestamp_utc_dt', 'study_id'])
-            p_inx = p_inx_t.compute()
+            # p_inx = p_inx_t.compute()
+            p_inxl = df3.set_index(['timestamp_utc_dt_local'])
             sktch_agg = None
-            p_sample = p_inx.resample(tw)
+            p_sample = p_inxl.resample(tw)
             if fillin:
                 pskt = p_sample.agg({kurtosis, 'std', 'mean', 'skew', 'var', 'count', 'min', 'max'})
             else:
@@ -55,6 +56,7 @@ class sketch:
                 pskt['90_per'] = quantile_90[var]
             pskt['pid'] = uid
             pskt.to_csv(prefix_dir + str(var) + "/" + uid + ".csv", sep=',')
+            print("writing on disk " ,uid)
             return pskt;
         except Exception as e:
             print("error", e.args, var)
@@ -106,7 +108,7 @@ def uprocess(mydict):
         try:
             t.uint_sketch(value, key, tw="300s", var="temperature",prefix_dir="/datavol/tempredict/sketch/")
         except Exception as e:
-            print("error", e.message, e.args)
+            print("error", e.args)
 
 
 Parallel(n_jobs=num_cores, verbose=20)(delayed(uprocess)(x) for x in dicts)
