@@ -55,6 +55,7 @@ class sketch:
                 pskt['80_per'] = quantile_80[var]
                 pskt['90_per'] = quantile_90[var]
             pskt['pid'] = uid
+            print(prefix_dir +str(var) + "/" + uid + ".csv", sep=',')
             pskt.to_csv(prefix_dir + str(var) + "/" + uid + ".csv", sep=',')
             print("writing on disk " ,uid)
             return pskt;
@@ -111,4 +112,6 @@ def uprocess(mydict):
             print("error", e.args)
 
 
-Parallel(n_jobs=num_cores, verbose=20)(delayed(uprocess)(x) for x in dicts)
+for x in dicts:
+    uprocess(x)
+# Parallel(n_jobs=num_cores, verbose=20)(delayed(uprocess)(x) for x in dicts)
