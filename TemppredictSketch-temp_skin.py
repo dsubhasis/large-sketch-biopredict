@@ -10,28 +10,28 @@ from scipy.stats import kurtosis
 
 
 class sketch:
-    def uint_sketch(self, paths, uid, tw="300s", var='temperature', prefix_dir="/cephfs/tempredict/sketch/",
+    def uint_sketch(self, paths, uid, tw="300s", var='temp_skin', prefix_dir="/cephfs/tempredict/sketch/",
                     fillin=True):
         try:
             b = bioframe()
             df, sql = b.load(paths, uid=uid)
             df["timestamp_utc_dt"] = df.apply(lambda x: self.local_time(x["timestamp_utc"]), axis=1)
-            print("Finished time")
+
             tf = []
             tf.append("timestamp_utc_dt")
             b.add_local_time(df, tf, utc='timezone_offset_minutes')
-            print("finished localtime")
+
             df3 = df.drop(
                 columns=['timezone_offset_minutes', 'participant_id', 'file_format', 'data_type', 'timestamp_utc',
                          'timestamp_utc_dt', 'study_id'])
             # p_inx = p_inx_t.compute()
             print(df3.head(10))
             df2 = df3.compute()
-            print("Compute done")
+
             p_inxl = df2.set_index(['timestamp_utc_dt_local'])
             sktch_agg = None
             p_sample = p_inxl.resample(tw)
-            print(p_sample.head(10))
+
             if fillin:
                 pskt = p_sample.agg({kurtosis, 'std', 'mean', 'skew', 'var', 'count', 'min', 'max'})
             else:
@@ -60,9 +60,9 @@ class sketch:
                 pskt['80_per'] = quantile_80[var]
                 pskt['90_per'] = quantile_90[var]
             pskt['pid'] = uid
-            print(prefix_dir +str(var) + "/" + uid + ".csv", sep=',')
+
             pskt.to_csv(prefix_dir + str(var) + "/" + uid + ".csv", sep=',')
-            print("writing on disk " ,uid)
+
             return pskt;
         except Exception as e:
             print("error: after writing", e.args, var)
@@ -103,7 +103,7 @@ def split_dictionary(input_dict, chunk_size):
 
 
 dicts = split_dictionary(mydict, num_cores)
-print(len(dicts))
+# print(len(dicts))
 
 
 def uprocess(mydict):
@@ -111,11 +111,11 @@ def uprocess(mydict):
         # print("1."+str(value))
         t = sketch()
         try:
-            t.uint_sketch(value, key, tw="300s", var="temperature",prefix_dir="/datavol/tempredict/sketch/")
+            t.uint_sketch(value, key, tw="300s", var="temp_skin",prefix_dir="/datavol/tempredict/sketch/")
         except Exception as e:
             print("error:: upeer uprocess", e.args)
 
 
-for x in dicts:
-    uprocess(x)
-# Parallel(n_jobs=num_cores, verbose=20)(delayed(uprocess)(x) for x in dicts)
+# for x in dicts:
+#     uprocess(x)
+Parallel(n_jobs=num_cores, verbose=20)(delayed(uprocess)(x) for x in dicts)
