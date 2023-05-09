@@ -63,7 +63,7 @@ class sketch:
 
             pskt.to_csv(prefix_dir + str(var) + "/" + uid + ".csv", sep=',')
 
-            return pskt;
+            return pskt
         except Exception as e:
             print("error: after writing", e.args, var)
 
