@@ -78,7 +78,7 @@ class sketch:
 
 num_cores = multiprocessing.cpu_count()
 print(num_cores)
-path_index = "/datavol/tempredict/id-list/postgres_public_full_catalog_skin_temp.csv"
+path_index = "/datavol/tempredict/id-list/postgres_public_full_catalog_hrv.csv"
 with open(path_index, mode='r') as infile:
     reader = csv.reader(infile)
     dcp = "/datavol/tempredict/org_data_don_use/study_id=71c9af3d-1c57-4e8e-96fb-88b10ee9acb8/"
