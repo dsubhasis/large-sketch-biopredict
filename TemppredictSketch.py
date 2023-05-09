@@ -16,16 +16,22 @@ class sketch:
             b = bioframe()
             df, sql = b.load(paths, uid=uid)
             df["timestamp_utc_dt"] = df.apply(lambda x: self.local_time(x["timestamp_utc"]), axis=1)
+
             tf = []
             tf.append("timestamp_utc_dt")
             b.add_local_time(df, tf, utc='timezone_offset_minutes')
-            p_inxl = df.set_index(['timestamp_utc_dt_local'])
-            p_inx_t = p_inxl.drop(
+
+            df3 = df.drop(
                 columns=['timezone_offset_minutes', 'participant_id', 'file_format', 'data_type', 'timestamp_utc',
                          'timestamp_utc_dt', 'study_id'])
-            p_inx = p_inx_t.compute()
+            # p_inx = p_inx_t.compute()
+            print(df3.head(10))
+            df2 = df3.compute()
+
+            p_inxl = df2.set_index(['timestamp_utc_dt_local'])
             sktch_agg = None
-            p_sample = p_inx.resample(tw)
+            p_sample = p_inxl.resample(tw)
+
             if fillin:
                 pskt = p_sample.agg({kurtosis, 'std', 'mean', 'skew', 'var', 'count', 'min', 'max'})
             else:
@@ -54,18 +60,19 @@ class sketch:
                 pskt['80_per'] = quantile_80[var]
                 pskt['90_per'] = quantile_90[var]
             pskt['pid'] = uid
+
             pskt.to_csv(prefix_dir + str(var) + "/" + uid + ".csv", sep=',')
+
             return pskt;
         except Exception as e:
-            print("error", e.message, e.args)
+            print("error: after writing", e.args, var)
 
     def local_time(self, x):
         y = 0
         try:
             y = pd.to_datetime(datetime.fromtimestamp(x).strftime('%Y-%m-%d-%H:%M:%S'))
         except Exception as e:
-            # y = datetime.strptime("1500-12-31 21:19:00 +00:00", '%Y-%m-%d %H:%M:%S %z')
-            print(str(e))
+            y = datetime.strptime("1500-12-31 21:19:00 +00:00", '%Y-%m-%d %H:%M:%S %z')
         return y
 
 
