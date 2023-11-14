@@ -108,7 +108,7 @@ def uprocess(mydict):
         # print("1."+str(value))
         t = sketch()
         try:
-            t.uint_sketch(value, key, tw="1800s", var="temp_skin",prefix_dir="/datavol/tempredict/sketch/30-min/")
+            t.uint_sketch(value, key, tw="1800s", var="hrv",prefix_dir="/datavol/tempredict/sketch/30-min/")
         except Exception as e:
             print("error:: upeer uprocess", e.args)
 # for x in dicts:
