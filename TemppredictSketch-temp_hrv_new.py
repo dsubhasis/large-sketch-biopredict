@@ -10,7 +10,7 @@ from scipy.stats import kurtosis
 
 
 class sketch:
-    def uint_sketch(self, paths, uid, tw="300s", var='hrv', prefix_dir="/cephfs/tempredict/sketch/",
+    def uint_sketch(self, paths, uid, tw="1800s", var='hrv', prefix_dir="/cephfs/tempredict/sketch/",
                     fillin=True):
         try:
             b = bioframe()
@@ -24,6 +24,7 @@ class sketch:
             df3 = df.drop(
                 columns=['timezone_offset_minutes', 'participant_id', 'file_format', 'data_type', 'timestamp_utc',
                          'timestamp_utc_dt', 'study_id'])
+
             # p_inx = p_inx_t.compute()
             print(df3.head(10))
             df2 = df3.compute()
