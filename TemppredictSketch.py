@@ -33,9 +33,9 @@ class sketch:
             p_sample = p_inxl.resample(tw)
 
             if fillin:
-                pskt = p_sample.agg({kurtosis, 'std', 'mean', 'skew', 'var', 'count', 'min', 'max'})
+                pskt = p_sample.agg({kurtosis, 'std', 'mean', 'skew', 'var', 'count', 'min', 'max', 'count'})
             else:
-                pskt = p_sample.agg({kurtosis, 'std', 'mean', 'skew', 'var', 'count', 'min', 'max'})
+                pskt = p_sample.agg({kurtosis, 'std', 'mean', 'skew', 'var', 'count', 'min', 'max', 'count'})
             if pskt is not None:
                 quantile_10 = p_sample.quantile(0.10)
                 quantile_20 = p_sample.quantile(0.20)
