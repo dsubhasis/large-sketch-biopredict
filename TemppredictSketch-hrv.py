@@ -37,68 +37,105 @@ class sketch:
             else:
                 pskt = p_sample.agg({kurtosis, 'std', 'mean', 'skew', 'var', 'count', 'min', 'max'})
             if pskt is not None:
-                quantile_10 = p_sample.quantile(0.10)
-                quantile_20 = p_sample.quantile(0.20)
-                quantile_25 = p_sample.quantile(0.25)
-                quantile_30 = p_sample.quantile(0.30)
-                quantile_40 = p_sample.quantile(0.40)
-                quantile_50 = p_sample.quantile(0.50)
-                quantile_60 = p_sample.quantile(0.60)
-                quantile_70 = p_sample.quantile(0.70)
-                quantile_75 = p_sample.quantile(0.75)
-                quantile_80 = p_sample.quantile(0.80)
-                quantile_90 = p_sample.quantile(0.90)
-                # print("*********")
-                # if quantile_10 is not None:
-                #     print(quantile_10[var])
-                #     print("$$$$$")
-                try:
-                    pskt['10_per'] = quantile_10[var]
-                except Exception as e:
-                    pskt['10_per'] = "NaN"
-                try:
-                    pskt['20_per'] = quantile_20[var]
-                except Exception as e:
-                    pskt['20_per'] = "NaN"
-                try:
-                    pskt['30_per'] = quantile_30[var]
-                except Exception as e:
-                    pskt['30_per'] = "NaN"
-                try:
-                    pskt['40_per'] = quantile_40[var]
-                except Exception as e:
-                    pskt['40_per'] = "NaN"
-                try:
-                    pskt['50_per'] = quantile_50[var]
-                except Exception as e:
-                    pskt['50_per'] = "NaN"
-                try:
-                    pskt['60_per'] = quantile_60[var]
-                except Exception as e:
-                    pskt['60_per'] = "NaN"
-                try:
-                    pskt['70_per'] = quantile_70[var]
-                except Exception as e:
-                    pskt['70_per'] = "NaN"
-                try:
-                    pskt['80_per'] = quantile_80[var]
-                except Exception as e:
-                    pskt['80_per'] = "NaN"
-                try:
-                    pskt['90_per'] = quantile_90[var]
-                except Exception as e:
-                    pskt['90_per'] = "NaN"
-                # print(quantile_10[var])
-                # pskt['20_per'] = quantile_20[var]
-                # pskt['25_per'] = quantile_25[var]
-                # pskt['30_per'] = quantile_30[var]
-                # pskt['40_per'] = quantile_40[var]
-                # pskt['50_per'] = quantile_50[var]
-                # pskt['60_per'] = quantile_60[var]
-                # pskt['70_per'] = quantile_70[var]
-                # pskt['75_per'] = quantile_75[var]
-                # pskt['80_per'] = quantile_80[var]
-                # pskt['90_per'] = quantile_90[var]
+                    quantile_10 = p_sample['HR'].quantile(0.10)
+                    quantile_20 = p_sample['HR'].quantile(0.20)
+                    quantile_25 = p_sample['HR'].quantile(0.25)
+                    quantile_30 = p_sample['HR'].quantile(0.30)
+                    quantile_40 = p_sample['HR'].quantile(0.40)
+                    quantile_50 = p_sample['HR'].quantile(0.50)
+                    quantile_60 = p_sample['HR'].quantile(0.60)
+                    quantile_70 = p_sample['HR'].quantile(0.70)
+                    quantile_75 = p_sample['HR'].quantile(0.75)
+                    quantile_80 = p_sample['HR'].quantile(0.80)
+                    quantile_90 = p_sample['HR'].quantile(0.90)
+                    try:
+                        pskt['HR_10_per'] = quantile_10[var]
+                    except Exception as e:
+                        pskt['HR_10_per'] = "NaN"
+                    try:
+                        pskt['HR_20_per'] = quantile_20[var]
+                    except Exception as e:
+                        pskt['HR_20_per'] = "NaN"
+                    try:
+                        pskt['HR_30_per'] = quantile_30[var]
+                    except Exception as e:
+                        pskt['HR_30_per'] = "NaN"
+                    try:
+                        pskt['HR_40_per'] = quantile_40[var]
+                    except Exception as e:
+                        pskt['HR_40_per'] = "NaN"
+                    try:
+                        pskt['HR_50_per'] = quantile_50[var]
+                    except Exception as e:
+                        pskt['HR_50_per'] = "NaN"
+                    try:
+                        pskt['HR_60_per'] = quantile_60[var]
+                    except Exception as e:
+                        pskt['HR_60_per'] = "NaN"
+                    try:
+                        pskt['HR_70_per'] = quantile_70[var]
+                    except Exception as e:
+                        pskt['HR_70_per'] = "NaN"
+                    try:
+                        pskt['HR_80_per'] = quantile_80[var]
+                    except Exception as e:
+                        pskt['HR_80_per'] = "NaN"
+                    try:
+                        pskt['HR_90_per'] = quantile_90[var]
+                    except Exception as e:
+                        pskt['HR_90_per'] = "NaN"
+
+                    quantile_10 = p_sample['rMSSD'].quantile(0.10)
+                    quantile_20 = p_sample['rMSSD'].quantile(0.20)
+                    quantile_25 = p_sample['rMSSD'].quantile(0.25)
+                    quantile_30 = p_sample['rMSSD'].quantile(0.30)
+                    quantile_40 = p_sample['rMSSD'].quantile(0.40)
+                    quantile_50 = p_sample['rMSSD'].quantile(0.50)
+                    quantile_60 = p_sample['rMSSD'].quantile(0.60)
+                    quantile_70 = p_sample['rMSSD'].quantile(0.70)
+                    quantile_75 = p_sample['rMSSD'].quantile(0.75)
+                    quantile_80 = p_sample['rMSSD'].quantile(0.80)
+                    quantile_90 = p_sample['rMSSD'].quantile(0.90)
+
+                    try:
+                        pskt['rMSSD_10_per'] = quantile_10[var]
+                    except Exception as e:
+                        pskt['rMSSD_10_per'] = "NaN"
+                    try:
+                        pskt['rMSSD_20_per'] = quantile_20[var]
+                    except Exception as e:
+                        pskt['rMSSD_20_per'] = "NaN"
+                    try:
+                        pskt['rMSSD_30_per'] = quantile_30[var]
+                    except Exception as e:
+                        pskt['rMSSD_30_per'] = "NaN"
+                    try:
+                        pskt['rMSSD_40_per'] = quantile_40[var]
+                    except Exception as e:
+                        pskt['rMSSD_40_per'] = "NaN"
+                    try:
+                        pskt['rMSSD_50_per'] = quantile_50[var]
+                    except Exception as e:
+                        pskt['rMSSD_50_per'] = "NaN"
+                    try:
+                        pskt['rMSSD_60_per'] = quantile_60[var]
+                    except Exception as e:
+                        pskt['rMSSD_60_per'] = "NaN"
+                    try:
+                        pskt['rMSSD_70_per'] = quantile_70[var]
+                    except Exception as e:
+                        pskt['rMSSD_70_per'] = "NaN"
+                    try:
+                        pskt['rMSSD_80_per'] = quantile_80[var]
+                    except Exception as e:
+                        pskt['rMSSD_80_per'] = "NaN"
+                    try:
+                        pskt['rMSSD_90_per'] = quantile_90[var]
+                    except Exception as e:
+                        pskt['rMSSD_90_per'] = "NaN"
+
+
+
             pskt['pid'] = uid
             # print(pskt)
             pskt.to_csv(prefix_dir + str(var) + "/" + uid + ".csv", sep=',')
